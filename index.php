@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include('./header/header.php') ?>
     <?php include('./footer/footer.php') ?>
 </body>
 </html>
