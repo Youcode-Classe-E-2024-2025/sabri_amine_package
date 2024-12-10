@@ -29,3 +29,37 @@ const links = document.querySelectorAll(".link");
         sectionAuteur.classList.add("hidden");
         sectionAll.classList.add("hidden");
     })
+
+
+
+
+    const formAuteur = document.querySelector(".formAuteur");
+    const formPackage = document.querySelector(".formPackage");
+    const formVersion = document.querySelector(".formVersion");
+    const ajouteAuteur = document.querySelector(".ajouteAuteur");
+    const ajoutePackage = document.querySelector(".ajoutePackage");
+    const ajouteVersion = document.querySelector(".ajouteVersion");
+    const closeAuteur = document.querySelector(".closeAuteur");
+    const closePackage = document.querySelector(".closePackage");
+    const closeVersion = document.querySelector(".closeVersion");
+
+    ajouteAuteur.addEventListener('click',function(){
+        formAuteur.style.display = "block"
+    })
+    closeAuteur.addEventListener('click',function(){
+        formAuteur.style.display = "none"
+    })
+
+    ajoutePackage.addEventListener('click',function(){
+        formPackage.style.display = "block"
+    })
+    closePackage.addEventListener('click',function(){
+        formPackage.style.display = "none"
+    })
+    ajouteVersion.addEventListener('click',function(){
+        formVersion.style.display = "block"
+    })
+    closeVersion.addEventListener('click',function(){
+        formVersion.style.display = "none"
+    })
+

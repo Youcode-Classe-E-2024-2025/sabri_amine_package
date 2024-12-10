@@ -48,7 +48,7 @@
                 // $donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
             <div class="flex justify-end pr-24">
-                <button class="p-2 px-6 rounded-lg bg-yellow-300 text-white">
+                <button class="ajouteAuteur p-2 px-6 rounded-lg bg-yellow-300 text-white">
                     Ajouté Auteur
                 </button>
             </div>
@@ -84,6 +84,11 @@
                 $sql = "SELECT * FROM Auteur";
                 $donnees = $pdo->query($sql);
             ?>
+            <div class="flex justify-end pr-24">
+                <button class="ajoutePackage p-2 px-6 rounded-lg bg-yellow-300 text-white">
+                    Ajouté Package
+                </button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -123,6 +128,11 @@
                         JOIN Package p ON a.id_auteur = p.id_auteur";
                 $donnees = $pdo->query($sql);
             ?>
+            <div class="flex justify-end pr-24">
+                <button class="ajouteVersion p-2 px-6 rounded-lg bg-yellow-300 text-white">
+                    Ajouté Version
+                </button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -153,9 +163,9 @@
         </section>
         <section>
             <!-- formulaire Auteur -->
-            <div class="formAuteur bg-white shadow-lg rounded-lg p-6 pt-2 w-fit  mx-auto border-2 border-gray-200">
-                <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg"></i></div>
-                <form action="controller.php" method="post" class="space-y-4">
+            <div class="formAuteur w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none">
+                <form action="controller.php" method="post" class="space-y-4 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
+                    <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closeAuteur"></i></div>
                     <div>
                         <label for="nom" class=" text-sm font-medium text-gray-700">Auteur :</label>
                         <input type="text" id="nom" name="nom" 
@@ -181,9 +191,9 @@
                 $sql = "SELECT * FROM Auteur";
                 $donnees = $pdo->query($sql);
             ?>
-            <div class="formPackage bg-white shadow-lg rounded-lg p-6 pt-2 w-fit  mx-auto border-2 border-gray-200">
-                <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg"></i></div>
-                <form action="controller.php" method="post" class="space-y-4">
+            <div class="formPackage w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none">
+                <form action="controller.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
+                    <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closePackage"></i></div>
                     <div>
                         <label for="nom" class=" text-sm font-medium text-gray-700">Package:</label>
                         <input type="text" id="nom" name="nom" 
@@ -220,9 +230,9 @@
                 $sql = "SELECT * FROM package";
                 $donnees = $pdo->query($sql);
             ?>
-            <div class="formPackage bg-white shadow-lg rounded-lg p-6 pt-2 w-fit  mx-auto border-2 border-gray-200">
-                <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg"></i></div>
-                <form action="controller.php" method="post" class="space-y-4">
+            <div class="formVersion w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none" >
+                <form action="controller.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
+                    <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closeVersion"></i></div>
                     <div>
                         <label for="nom" class=" text-sm font-medium text-gray-700">Version:</label>
                         <input type="text" id="nom" name="nom" 
@@ -230,7 +240,7 @@
                             placeholder="Nom de l'auteur" required>
                     </div>
                     <div>
-                        <label for="id_auteur" class="block text-sm font-medium text-gray-700">Auteur :</label>
+                        <label for="id_auteur" class="block text-sm font-medium text-gray-700">Packages :</label>
                         <select id="id_auteur" name="id_auteur" 
                                 class="mt-1 block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md outline-none" 
                                 required>
@@ -243,7 +253,7 @@
                     <div class="text-center">
                         <button type="submit" 
                             class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
-                            Ajouter Package
+                            Ajouter Version
                         </button>
                     </div>
                 </form>
