@@ -1,6 +1,6 @@
 <?php
     $host = 'localhost';
-    $dbname = 'gestion_packages';
+    $dbname = 'gestion_packagees';
     $user = 'root';
     $password = ''; 
 

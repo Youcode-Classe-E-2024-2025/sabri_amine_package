@@ -84,17 +84,17 @@
                     <tr>
                         <th>Id</th>
                         <th>Auteur</th>
-                        <th>Package</th>
-                        <th>Version</th>
+                        <th>Description</th>
+                        <th>Date Creation</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($donnees as $ligne): ?>
                         <tr>
-                            <td><?= $ligne['id_auteur']?></td>
+                            <td><?= $ligne['id_Auteur']?></td>
                             <td><?= $ligne['nom']?></td>
                             <td><?= $ligne['description'] ?></td>
-                            <td><?= $ligne['date_creation'] ?></td>
+                            <td><?= $ligne['date_Creation'] ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -119,7 +119,7 @@
                         <th>Id</th>
                         <th>Nom</th>
                         <th>Description</th>
-                        <th>Date_Creation</th>
+                        <th>Date Creation</th>
                         <th>Auteur</th>
                     </tr>
                 </thead>
