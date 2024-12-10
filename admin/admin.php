@@ -166,7 +166,7 @@
                         <label for="description" class=" text-sm font-medium text-gray-700">Description :</label>
                         <textarea id="description" name="description" 
                             class="mt-1 block  px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md  outline-none" 
-                            placeholder="Une brève description" rows="2" required></textarea>
+                            placeholder="Une brève description" rows="1" required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" 
@@ -194,7 +194,7 @@
                         <label for="description" class=" text-sm font-medium text-gray-700">Description :</label>
                         <textarea id="description" name="description" 
                             class="mt-1 block  px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md  outline-none" 
-                            placeholder="Une brève description" rows="2" required></textarea>
+                            placeholder="Une brève description" rows="1" required></textarea>
                     </div>
                     <div>
                         <label for="id_auteur" class="block text-sm font-medium text-gray-700">Auteur :</label>
@@ -203,7 +203,40 @@
                                 required>
                                 <option value="" disabled selected>Choisissez un auteur</option>
                                 <?php foreach ($donnees as $auteur): ?>
-                                    <option value=""><?php echo $auteur['nom']; ?></option>
+                                    <option value="<?php echo $auteur['id_Auteur']; ?>"><?php echo $auteur['nom']; ?></option>
+                                <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" 
+                            class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
+                            Ajouter Package
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- formulaire Version -->
+            <?php
+                $sql = "SELECT * FROM package";
+                $donnees = $pdo->query($sql);
+            ?>
+            <div class="formPackage bg-white shadow-lg rounded-lg p-6 pt-2 w-fit  mx-auto border-2 border-gray-200">
+                <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg"></i></div>
+                <form action="controller.php" method="post" class="space-y-4">
+                    <div>
+                        <label for="nom" class=" text-sm font-medium text-gray-700">Version:</label>
+                        <input type="text" id="nom" name="nom" 
+                            class="mt-1 block  w-[200px] px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md outline-none" 
+                            placeholder="Nom de l'auteur" required>
+                    </div>
+                    <div>
+                        <label for="id_auteur" class="block text-sm font-medium text-gray-700">Auteur :</label>
+                        <select id="id_auteur" name="id_auteur" 
+                                class="mt-1 block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md outline-none" 
+                                required>
+                                <option value="" disabled selected>Choisissez un auteur</option>
+                                <?php foreach ($donnees as $auteur): ?>
+                                    <option value="<?php echo $auteur['id_package']; ?>"><?php echo $auteur['nom']; ?></option>
                                 <?php endforeach; ?>
                         </select>
                     </div>
