@@ -1,10 +1,10 @@
-    <footer class="bg-gray-100 text-white py-6 shadow-lg">
+    <footer class="bg-gray-100 text-white py-6 shadow-lg relative top-[328px]">
         <div class="flex justify-between items-center max-w-7xl mx-auto px-8">
             <div>
                 <img src="./assets/images/logo_js.png" alt="Logo JavaScript" class="w-16">
             </div>
             <div class="flex space-x-6">
-                <a href="#" target="_blank" class="text-gray-400 hover:text-blue-600">
+                <a href="../index.php" target="_blank" class="text-gray-400 hover:text-blue-600">
                     <i class="bi bi-facebook text-2xl"></i>
                 </a>
                 <a href="#" target="_blank" class="text-gray-400 hover:text-blue-400">
