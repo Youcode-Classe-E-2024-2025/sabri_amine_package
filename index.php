@@ -27,7 +27,7 @@
     <main>
         <section>
             <div class="pl-56 mt-10">
-                <a href="#" class='link text-red-500' >Home</a> / 
+                <a href="#" class='link text-yellow-500' >Home</a> / 
                 <a href="#" class='link'>Auteurs</a> / 
                 <a href="#" class='link'>Packages</a>
             </div>
