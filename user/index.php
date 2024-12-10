@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <?php include('./header/header.php') ?>
+    <?php include('../header/header.php') ?>
     <main>
         <section>
             <div class="pl-56 mt-10">
@@ -32,7 +32,7 @@
                 <span id="package" class='link cursor-pointer'>Packages</span>
             </div>
         </section>
-        <?php include("conx.php");?>
+        <?php include("../conx.php");?>
         <section class="All">
             <?php
                 $sql = "SELECT 
@@ -138,7 +138,7 @@
         </section>
         
     </main>
-    <?php include('./footer/footer.php') ?>
-    <script src="./assets/js/script.js"></script>
+    <?php include('../footer/footer.php') ?>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
