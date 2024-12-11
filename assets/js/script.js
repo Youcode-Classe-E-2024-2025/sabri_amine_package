@@ -10,25 +10,37 @@ const links = document.querySelectorAll(".link");
     const home = document.querySelector("#home");
     const auteur = document.querySelector("#auteur");
     const package = document.querySelector("#package");
+    const version = document.querySelector("#version");
     const sectionAll = document.querySelector(".All");
     const sectionAuteur = document.querySelector(".Auteurs");
     const sectionPackage = document.querySelector(".Packages");
+    const sectionVersion = document.querySelector(".Version");
 
     home.addEventListener("click",function(){
         sectionAll.classList.remove("hidden");
         sectionAuteur.classList.add("hidden");
         sectionPackage.classList.add("hidden");
+        sectionVersion.classList.add("hidden");
     })
     auteur.addEventListener("click",function(){
         sectionAuteur.classList.remove("hidden");
         sectionAll.classList.add("hidden");
         sectionPackage.classList.add("hidden");
+        sectionVersion.classList.add("hidden");
     })
     package.addEventListener("click",function(){
         sectionPackage.classList.remove("hidden");
         sectionAuteur.classList.add("hidden");
         sectionAll.classList.add("hidden");
+        sectionVersion.classList.add("hidden");
     })
+    version.addEventListener("click",function(){
+        sectionVersion.classList.remove("hidden");
+        sectionPackage.classList.add("hidden");
+        sectionAuteur.classList.add("hidden");
+        sectionAll.classList.add("hidden");
+    })
+
 
 
 

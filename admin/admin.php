@@ -29,7 +29,8 @@
             <div class="pl-56 mt-10">
                 <span id="home" class='link text-yellow-500 cursor-pointer' >Home</span> / 
                 <span id="auteur" class='link cursor-pointer'>Auteurs</span> / 
-                <span id="package" class='link cursor-pointer'>Packages</span>
+                <span id="package" class='link cursor-pointer'>Packages</span>/
+                <span id="version" class='link cursor-pointer'>Version</span>
             </div>
         </section>
         <?php include("../conx.php");?>
@@ -47,11 +48,6 @@
                 $donnees = $pdo->query($sql);
                 // $donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
-            <div class="flex justify-end pr-24">
-                <button class="ajouteAuteur p-2 px-6 rounded-lg bg-yellow-300 text-white">
-                    Ajouté Auteur
-                </button>
-            </div>
             <table>
                 <thead>
                     <tr>
@@ -85,7 +81,7 @@
                 $donnees = $pdo->query($sql);
             ?>
             <div class="flex justify-end pr-24">
-                <button class="ajoutePackage p-2 px-6 rounded-lg bg-yellow-300 text-white">
+                <button class="ajouteAuteur p-2 px-6 rounded-lg bg-yellow-300 text-white">
                     Ajouté Package
                 </button>
             </div>
@@ -129,8 +125,8 @@
                 $donnees = $pdo->query($sql);
             ?>
             <div class="flex justify-end pr-24">
-                <button class="ajouteVersion p-2 px-6 rounded-lg bg-yellow-300 text-white">
-                    Ajouté Version
+                <button class="ajoutePackage p-2 px-6 rounded-lg bg-yellow-300 text-white">
+                    Ajouté Packages
                 </button>
             </div>
             <table>
@@ -161,6 +157,46 @@
                 </tbody>
             </table>
         </section>
+
+        <section class= "Version hidden">
+            <?php
+                $sql = "SELECT 
+                        v.id_version as idVersion,
+                        v.num_version as numVersion,
+                        p.nom as nomPackage
+                        FROM package p
+                        JOIN version v ON v.id_package = v.id_package";
+                $donnees = $pdo->query($sql);
+            ?>
+            <div class="flex justify-end pr-24">
+                <button class="ajouteVersion p-2 px-6 rounded-lg bg-yellow-300 text-white">
+                    Ajouté Version
+                </button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Verion</th>
+                        <th>Nom_Package</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($donnees as $ligne): ?>
+                        <tr>
+                            <td><?= $ligne['idVersion']?></td>
+                            <td><?= $ligne['numVersion']?></td>
+                            <td><?= $ligne['nomPackage'] ?></td>
+                            <td class="flex gap-4 justify-center">
+                                <button><i class="bi bi-trash-fill "></i></button>
+                                <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
         <section>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -169,7 +205,7 @@
                     
                     $sql = "INSERT INTO auteur (nom,description) VALUES ('$auteur','$description')";
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute()
+                    $stmt->execute();
                 }
             ?>
             <!-- formulaire Auteur -->
