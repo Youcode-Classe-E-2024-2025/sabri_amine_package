@@ -38,7 +38,7 @@
                 $sql = "SELECT 
                             a.id_auteur,
                             a.Nom AS AuteurNom, 
-                            p.Nom AS PackageNom, 
+                            p.NomP AS PackageNom, 
                             v.Num_Version AS VersionNum
                         FROM Auteur a
                         JOIN Package p ON a.ID_Auteur = p.ID_Auteur
@@ -54,7 +54,6 @@
                         <th>Auteur</th>
                         <th>Package</th>
                         <th>Version</th>
-                        <!-- <th>Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -64,10 +63,6 @@
                             <td><?= $ligne['AuteurNom']?></td>
                             <td><?= $ligne['PackageNom'] ?></td>
                             <td><?= $ligne['VersionNum'] ?></td>
-                            <!-- <td class="flex gap-4">
-                                <button><i class="bi bi-trash-fill "></i></button>
-                                <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
-                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -105,8 +100,8 @@
             <?php
                 $sql = "SELECT 
                         p.id_package as idPackage,
-                        p.nom as nomPackage,
-                        p.description as descPackage,
+                        p.nomP as nomPackage,
+                        p.descriptionP as descPackage,
                         p.date_creation as datePackage,
                         a.nom as nomAuteur
                         FROM auteur a

@@ -48,6 +48,11 @@
                 $donnees = $pdo->query($sql);
                 // $donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
+            <div class="flex justify-end pr-24">
+                <p class="p-2 px-6 rounded-lg bg-white-300 text-white">
+                    .
+                </p>
+            </div>
             <table>
                 <thead>
                     <tr>
