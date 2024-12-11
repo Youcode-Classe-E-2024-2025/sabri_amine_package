@@ -75,6 +75,18 @@
                 $sql = "SELECT * FROM Auteur";
                 $donnees = $pdo->query($sql);
             ?>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['delete_auteur'])) {
+                        $id_auteur = $_POST['id_auteur'];
+                        $sql = "DELETE FROM Auteur WHERE id_Auteur = :id_auteur";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([':id_auteur' => $id_auteur]);
+
+                        echo "Auteur supprimé avec succès.";
+                    }
+                }
+                ?>
             <div class="flex justify-end pr-24">
                 <button class="ajouteAuteur p-2 px-6 rounded-lg bg-yellow-300 text-white">
                     Ajouté Auteur
@@ -98,7 +110,10 @@
                             <td><?= $ligne['description'] ?></td>
                             <td><?= $ligne['date_Creation'] ?></td>
                             <td class="flex gap-4 justify-center">
-                                <button><i class="bi bi-trash-fill "></i></button>
+                                <form action="admin.php" method="POST">
+                                    <input type="hidden" name="id_auteur" value="<?= $ligne['id_Auteur'] ?>">
+                                    <button type="submit" name="delete_auteur" class="bi bi-trash-fill"></button>
+                                </form>
                                 <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
                             </td>
                         </tr>
@@ -119,6 +134,19 @@
                         JOIN Package p ON a.id_auteur = p.id_auteur";
                 $donnees = $pdo->query($sql);
             ?>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['delete_package'])) {
+                        $id_package = $_POST['id_package'];
+                        $sql = "DELETE FROM Package WHERE id_package = :id_package";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([':id_package' => $id_package]);
+
+                        echo "Package supprimé avec succès.";
+                    }
+                }
+            ?>
+
             <div class="flex justify-end pr-24">
                 <button class="ajoutePackage p-2 px-6 rounded-lg bg-yellow-300 text-white">
                     Ajouté Packages
@@ -144,7 +172,10 @@
                             <td><?= $ligne['datePackage'] ?></td>
                             <td><?= $ligne['nomAuteur'] ?></td>
                             <td class="flex gap-4 justify-center">
-                                <button><i class="bi bi-trash-fill "></i></button>
+                                <form action="admin.php" method="POST">
+                                    <input type="hidden" name="id_package" value="<?= $ligne['idPackage'] ?>">
+                                    <button type="submit" name="delete_package" class="bi bi-trash-fill"></button>
+                                </form>
                                 <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
                             </td>
                         </tr>
@@ -162,6 +193,18 @@
                         FROM package p
                         JOIN version v ON v.id_package = v.id_package";
                 $donnees = $pdo->query($sql);
+            ?>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['delete_version'])) {
+                        $id_version = $_POST['id_version'];
+                        $sql = "DELETE FROM version WHERE id_version = :id_version";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([':id_version' => $id_version]);
+
+                        echo "Version supprimée avec succès.";
+                    }
+                }
             ?>
             <div class="flex justify-end pr-24">
                 <button class="ajouteVersion p-2 px-6 rounded-lg bg-yellow-300 text-white">
@@ -184,7 +227,10 @@
                             <td><?= $ligne['numVersion']?></td>
                             <td><?= $ligne['nomPackage'] ?></td>
                             <td class="flex gap-4 justify-center">
-                                <button><i class="bi bi-trash-fill "></i></button>
+                                <form action="admin.php" method="POST">
+                                    <input type="hidden" name="id_version" value="<?= $ligne['idVersion'] ?>">
+                                    <button type="submit" name="delete_version" class="bi bi-trash-fill"></button>
+                                </form>
                                 <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
                             </td>
                         </tr>
