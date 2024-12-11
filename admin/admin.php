@@ -39,7 +39,7 @@
                 $sql = "SELECT 
                             a.id_auteur,
                             a.Nom AS AuteurNom, 
-                            p.Nom AS PackageNom, 
+                            p.NomP AS PackageNom, 
                             v.Num_Version AS VersionNum
                         FROM Auteur a
                         JOIN Package p ON a.ID_Auteur = p.ID_Auteur
@@ -55,7 +55,6 @@
                         <th>Auteur</th>
                         <th>Package</th>
                         <th>Version</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,10 +64,6 @@
                             <td><?= $ligne['AuteurNom']?></td>
                             <td><?= $ligne['PackageNom'] ?></td>
                             <td><?= $ligne['VersionNum'] ?></td>
-                            <td class="flex gap-4 justify-center">
-                                <button><i class="bi bi-trash-fill "></i></button>
-                                <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
-                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -82,7 +77,7 @@
             ?>
             <div class="flex justify-end pr-24">
                 <button class="ajouteAuteur p-2 px-6 rounded-lg bg-yellow-300 text-white">
-                    Ajouté Package
+                    Ajouté Auteur
                 </button>
             </div>
             <table>
@@ -116,8 +111,8 @@
             <?php
                 $sql = "SELECT 
                         p.id_package as idPackage,
-                        p.nom as nomPackage,
-                        p.description as descPackage,
+                        p.nomP as nomPackage,
+                        p.descriptionP as descPackage,
                         p.date_creation as datePackage,
                         a.nom as nomAuteur
                         FROM auteur a
@@ -163,7 +158,7 @@
                 $sql = "SELECT 
                         v.id_version as idVersion,
                         v.num_version as numVersion,
-                        p.nom as nomPackage
+                        p.nomP as nomPackage
                         FROM package p
                         JOIN version v ON v.id_package = v.id_package";
                 $donnees = $pdo->query($sql);
@@ -200,12 +195,17 @@
         <section>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    $auteur = $_POST["nom"];
-                    $description = $_POST["description"];
-                    
-                    $sql = "INSERT INTO auteur (nom,description) VALUES ('$auteur','$description')";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
+                    if (isset($_POST['submit_auteur'])) {
+                        $auteur = $_POST["nom"];
+                        $description = $_POST["description"];
+                        
+                        $sql = "INSERT INTO auteur (nom, description) VALUES (:nom, :description)";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([
+                            ':nom' => $auteur,
+                            ':description' => $description
+                        ]);
+                    }
                 }
             ?>
             <!-- formulaire Auteur -->
@@ -225,8 +225,8 @@
                             placeholder="Une brève description" rows="1" required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" 
-                            class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
+                        <button type="submit" name="submit_auteur" 
+                                class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
                             Ajouter Auteur
                         </button>
                     </div>
@@ -237,8 +237,26 @@
                 $sql = "SELECT * FROM Auteur";
                 $donnees = $pdo->query($sql);
             ?>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['submit_package'])) {
+                        $package = $_POST["nom"];
+                        $description = $_POST["description"];
+                        $id_auteur = $_POST["id_auteur"];
+                        
+                        $sql = "INSERT INTO package (nomP, descriptionP, id_auteur) VALUES (:nom, :description, :id_auteur)";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([
+                            ':nom' => $package,
+                            ':description' => $description,
+                            ':id_auteur' => $id_auteur
+                        ]);
+                        
+                    }
+                }
+            ?>
             <div class="formPackage w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none">
-                <form action="controller.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
+                <form action="admin.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
                     <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closePackage"></i></div>
                     <div>
                         <label for="nom" class=" text-sm font-medium text-gray-700">Package:</label>
@@ -264,8 +282,8 @@
                         </select>
                     </div>
                     <div class="text-center">
-                        <button type="submit" 
-                            class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
+                        <button type="submit" name="submit_package" 
+                                class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
                             Ajouter Package
                         </button>
                     </div>
@@ -276,8 +294,24 @@
                 $sql = "SELECT * FROM package";
                 $donnees = $pdo->query($sql);
             ?>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['submit_version'])) {
+                        $version = $_POST["nom"];
+                        $id_package = $_POST["id_package"];
+                        
+                        $sql = "INSERT INTO version (num_version, id_package) VALUES (:num_version,:id_package)";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([
+                            ':num_version' => $version,
+                            ':id_package' => $id_package
+                        ]);
+                        
+                    }
+                }
+            ?>
             <div class="formVersion w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none" >
-                <form action="controller.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
+                <form action="admin.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
                     <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closeVersion"></i></div>
                     <div>
                         <label for="nom" class=" text-sm font-medium text-gray-700">Version:</label>
@@ -287,17 +321,17 @@
                     </div>
                     <div>
                         <label for="id_auteur" class="block text-sm font-medium text-gray-700">Packages :</label>
-                        <select id="id_auteur" name="id_auteur" 
+                        <select id="id_package" name="id_package" 
                                 class="mt-1 block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md outline-none" 
                                 required>
                                 <option value="" disabled selected>Choisissez un auteur</option>
                                 <?php foreach ($donnees as $auteur): ?>
-                                    <option value="<?php echo $auteur['id_package']; ?>"><?php echo $auteur['nom']; ?></option>
+                                    <option value="<?php echo $auteur['id_package']; ?>"><?php echo $auteur['nomP']; ?></option>
                                 <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="text-center">
-                        <button type="submit" 
+                        <button type="submit" name="submit_version"
                             class="px-6 py-2 bg-yellow-500 text-white rounded-md outline-none">
                             Ajouter Version
                         </button>
