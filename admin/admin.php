@@ -162,9 +162,19 @@
             </table>
         </section>
         <section>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                    $auteur = $_POST["nom"];
+                    $description = $_POST["description"];
+                    
+                    $sql = "INSERT INTO auteur (nom,description) VALUES ('$auteur','$description')";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute()
+                }
+            ?>
             <!-- formulaire Auteur -->
             <div class="formAuteur w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none">
-                <form action="controller.php" method="post" class="space-y-4 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
+                <form action="admin.php" method="post" class="space-y-4 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
                     <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closeAuteur"></i></div>
                     <div>
                         <label for="nom" class=" text-sm font-medium text-gray-700">Auteur :</label>
