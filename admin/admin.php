@@ -45,7 +45,7 @@
                         JOIN Package p ON a.ID_Auteur = p.ID_Auteur
                         JOIN Version v ON p.ID_Package = v.ID_Package";
 
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
                 // $donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
             <div class="flex justify-end pr-24">
@@ -78,14 +78,14 @@
         <section class= "Auteurs hidden">
             <?php
                 $sql = "SELECT * FROM Auteur";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete_auteur'])) {
                         $id_auteur = $_POST['id_auteur'];
                         $sql = "DELETE FROM Auteur WHERE id_Auteur = :id_auteur";
-                        $stmt = $pdo->prepare($sql);
+                        $stmt = $con->prepare($sql);
                         $stmt->execute([':id_auteur' => $id_auteur]);
 
                         echo "Auteur supprimé avec succès.";
@@ -119,7 +119,9 @@
                                     <input type="hidden" name="id_auteur" value="<?= $ligne['id_Auteur'] ?>">
                                     <button type="submit" name="delete_auteur" class="bi bi-trash-fill"></button>
                                 </form>
-                                <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
+                                <a href="controller.php?id=<?= $ligne['id_Auteur'] ?>">
+                                    <i class="bi bi-pencil-square text-yellow-500 iconUpdateAuteur"></i>
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -137,14 +139,14 @@
                         a.nom as nomAuteur
                         FROM auteur a
                         JOIN Package p ON a.id_auteur = p.id_auteur";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete_package'])) {
                         $id_package = $_POST['id_package'];
                         $sql = "DELETE FROM Package WHERE id_package = :id_package";
-                        $stmt = $pdo->prepare($sql);
+                        $stmt = $con->prepare($sql);
                         $stmt->execute([':id_package' => $id_package]);
 
                         echo "Package supprimé avec succès.";
@@ -181,7 +183,9 @@
                                     <input type="hidden" name="id_package" value="<?= $ligne['idPackage'] ?>">
                                     <button type="submit" name="delete_package" class="bi bi-trash-fill"></button>
                                 </form>
-                                <button><i class="bi bi-pencil-square text-yellow-500"></i></button>
+                                <a href="controller.php?id=<?= $ligne['idPackage'] ?>">
+                                    <i class="bi bi-pencil-square text-yellow-500 iconUpdatePackage"></i>
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -197,14 +201,14 @@
                         p.nomP as nomPackage
                         FROM package p
                         JOIN version v ON v.id_package = v.id_package";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete_version'])) {
                         $id_version = $_POST['id_version'];
                         $sql = "DELETE FROM version WHERE id_version = :id_version";
-                        $stmt = $pdo->prepare($sql);
+                        $stmt = $con->prepare($sql);
                         $stmt->execute([':id_version' => $id_version]);
 
                         echo "Version supprimée avec succès.";
@@ -251,7 +255,7 @@
                         $description = $_POST["description"];
                         
                         $sql = "INSERT INTO auteur (nom, description) VALUES (:nom, :description)";
-                        $stmt = $pdo->prepare($sql);
+                        $stmt = $con->prepare($sql);
                         $stmt->execute([
                             ':nom' => $auteur,
                             ':description' => $description
@@ -286,7 +290,7 @@
             <!-- formulaire package -->
             <?php
                 $sql = "SELECT * FROM Auteur";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -296,7 +300,7 @@
                         $id_auteur = $_POST["id_auteur"];
                         
                         $sql = "INSERT INTO package (nomP, descriptionP, id_auteur) VALUES (:nom, :description, :id_auteur)";
-                        $stmt = $pdo->prepare($sql);
+                        $stmt = $con->prepare($sql);
                         $stmt->execute([
                             ':nom' => $package,
                             ':description' => $description,
@@ -343,7 +347,7 @@
             <!-- formulaire Version -->
             <?php
                 $sql = "SELECT * FROM package";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -352,7 +356,7 @@
                         $id_package = $_POST["id_package"];
                         
                         $sql = "INSERT INTO version (num_version, id_package) VALUES (:num_version,:id_package)";
-                        $stmt = $pdo->prepare($sql);
+                        $stmt = $con->prepare($sql);
                         $stmt->execute([
                             ':num_version' => $version,
                             ':id_package' => $id_package
@@ -391,7 +395,6 @@
             </div>
 
         </section>
-        
     </main>
     <?php include('../footer/footer.php') ?>
     <script src="../assets/js/script.js"></script>
