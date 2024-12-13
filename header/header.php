@@ -3,11 +3,12 @@
             <img src="../assets/images/logo_js.png" alt="img js not found" width = "60px">
         </div>
 
-        <div class="space-x-4 flex justify-center">
+        <div class="space-x-4 flex justify-center items-center">
             <?php
                 session_start();
                 if (isset($_SESSION['nom']) && isset($_SESSION['prenom'])) {
-                    echo "<h1>" . $_SESSION['nom'] . " " . $_SESSION['prenom'] . "</h1>";
+                    echo "<h1 class=\"border-2 border-yellow-500 text-white rounded-lg p-[2px] pl-10 pr-10  bg-yellow-500\">" . $_SESSION['nom'] . " " . $_SESSION['prenom'] . "</h1>";
+
                 } else {
                     echo "";
                 }
@@ -18,18 +19,10 @@
         </div>
     </header>
     <?php
-    // Vérifier si le bouton logout a été cliqué
     if (isset($_POST['logout'])) {
-        // Démarrer la session
         session_start();
-        
-        // Détruire toutes les variables de session
         session_unset();
-        
-        // Détruire la session
         session_destroy();
-        
-        // Redirection vers la page de connexion
         header("Location: ../login/login.php");
         exit;
     }
