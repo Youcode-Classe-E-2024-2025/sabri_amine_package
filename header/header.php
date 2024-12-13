@@ -14,7 +14,7 @@
                 }
             ?>
             <form action="" method="POST">
-                <button type="submit" name="logout" class="bg-gray-700 text-white px-4 py-1 rounded hover:bg-gray-500">Logout</button>
+                <button type="submit" name="logout" class="bg-yellow-600 text-white px-2 py-1 rounded hover:bg-gray-500"><i class="bi bi-box-arrow-right"></i></button>
             </form>
         </div>
     </header>

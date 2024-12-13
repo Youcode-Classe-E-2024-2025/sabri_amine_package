@@ -64,6 +64,9 @@
                 <div class="flex justify-center">
                     <input type="submit" value="S'inscrire" class="w-[150px] py-3 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 outline-none">
                 </div>
+                <div class="flex justify-center">
+                    Already have an account ?<a href="../login/login.php" class= "text-gray-500"><u>Sign In</u></a>
+                </div>
             </form>
         </div>
     </section>
