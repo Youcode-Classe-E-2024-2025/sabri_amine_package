@@ -44,7 +44,7 @@
                         JOIN Package p ON a.ID_Auteur = p.ID_Auteur
                         JOIN Version v ON p.ID_Package = v.ID_Package";
 
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
                 // $donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
             <table>
@@ -72,7 +72,7 @@
         <section class= "Auteurs hidden">
             <?php
                 $sql = "SELECT * FROM Auteur";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <table>
                 <thead>
@@ -106,7 +106,7 @@
                         a.nom as nomAuteur
                         FROM auteur a
                         JOIN Package p ON a.id_auteur = p.id_auteur";
-                $donnees = $pdo->query($sql);
+                $donnees = $con->query($sql);
             ?>
             <table>
                 <thead>

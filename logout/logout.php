@@ -8,12 +8,42 @@
     <title>Document</title>
 </head>
 <body>
+<?php 
+    include('../conx.php');
+
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST['email'];
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT); 
+        $role = 'user';
+        
+        // Préparer la requête avec des "?" (placeholders positionnels)
+        $query = $con->prepare("INSERT INTO users (nom, prenom, email, password, role) VALUES (?, ?, ?, ?, ?)");
+
+        if ($query) {
+            // Associer les paramètres aux placeholders
+            $query->bind_param("sssss", $nom, $prenom, $email, $password, $role);
+
+            if ($query->execute()) {
+                header("Location: ../login/login.php");
+                exit;
+            } else {
+                $error = "Erreur lors de l'inscription. Veuillez réessayer.";
+            }
+        } else {
+            $error = "Erreur dans la préparation de la requête SQL.";
+        }
+    }
+?>
+
     <section class="pl-12 pt-4">
         <img src="../assets/images/logo_js.png" alt="img js not found" width = "100px">
     </section>
     <section class="flex justify-center items-center mt-16 ">
         <div class="bg-white p-8 rounded-[12px] shadow-lg  border-2 border-gray-100 w-96">
             <h2 class="text-2xl  text-center font-bold mb-5 ">Inscription</h2>
+            <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
             <form action="" method="POST">
                 <div class= "grid grid-cols-2 gap-3">
                     <div class="mb-4">

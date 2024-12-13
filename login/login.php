@@ -11,6 +11,39 @@
     <section class="pl-12 pt-4">
         <img src="../assets/images/logo_js.png" alt="img js not found" width = "100px">
     </section>
+    <?php
+        session_start();
+        require '../conx.php'; 
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            // Préparer la requête avec MySQLi
+            $query = $con->prepare("SELECT * FROM users WHERE email = ?");
+            $query->bind_param("s", $email);
+            $query->execute();
+            $result = $query->get_result();
+            $user = $result->fetch_assoc();
+
+            if ($user && password_verify($password, $user['password'])) {
+                // Stocker l'utilisateur dans la session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['role'] = $user['role'];
+
+                // Redirection en fonction du rôle
+                if ($user['role'] === 'admin') {
+                    header("Location: ../admin/admin.php");
+                } else {
+                    header("Location: ../user/index.php");
+                }
+                exit;
+            } else {
+                $error = "Email ou mot de passe incorrect.";
+            }
+        }
+        ?>
+
     <section class="flex justify-center items-center mt-16 ">
         <div class="bg-white p-8 rounded-[12px] shadow-lg  border-2 border-gray-100 w-96">
             <h2 class="text-2xl  text-center font-bold mb-5 ">Se connecter</h2>
