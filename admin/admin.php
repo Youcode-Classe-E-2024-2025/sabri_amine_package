@@ -149,7 +149,7 @@
                         
                         $sql = "DELETE FROM Package WHERE id_package = ?";
                         $stmt = $con->prepare($sql);
-                        $stmt->bind_param('i', $id_package);  // 'i' pour entier
+                        $stmt->bind_param('i', $id_package);  
                         $stmt->execute();
                         $stmt->close();
                     }
@@ -202,7 +202,7 @@
                         v.num_version as numVersion,
                         p.nomP as nomPackage
                         FROM package p
-                        JOIN version v ON v.id_package = v.id_package";
+                        JOIN version v ON v.id_package = p.id_package";
                 $donnees = $con->query($sql);
             ?>
             <?php
@@ -212,7 +212,7 @@
                         
                         $sql = "DELETE FROM version WHERE id_version = ?";
                         $stmt = $con->prepare($sql);
-                        $stmt->bind_param('i', $id_version);  // 'i' pour entier
+                        $stmt->bind_param('i', $id_version); 
                         $stmt->execute();
                         $stmt->close();
                     }
