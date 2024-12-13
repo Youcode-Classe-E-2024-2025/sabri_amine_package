@@ -84,14 +84,15 @@
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete_auteur'])) {
                         $id_auteur = $_POST['id_auteur'];
-                        $sql = "DELETE FROM Auteur WHERE id_Auteur = :id_auteur";
+                        
+                        $sql = "DELETE FROM Auteur WHERE id_Auteur = ?";
                         $stmt = $con->prepare($sql);
-                        $stmt->execute([':id_auteur' => $id_auteur]);
-
-                        echo "Auteur supprimé avec succès.";
+                        $stmt->bind_param('i', $id_auteur); 
+                        $stmt->execute();
+                        $stmt->close();
                     }
                 }
-                ?>
+            ?>
             <div class="flex justify-end pr-24">
                 <button class="ajouteAuteur p-2 px-6 rounded-lg bg-yellow-300 text-white">
                     Ajouté Auteur
@@ -145,11 +146,12 @@
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete_package'])) {
                         $id_package = $_POST['id_package'];
-                        $sql = "DELETE FROM Package WHERE id_package = :id_package";
+                        
+                        $sql = "DELETE FROM Package WHERE id_package = ?";
                         $stmt = $con->prepare($sql);
-                        $stmt->execute([':id_package' => $id_package]);
-
-                        echo "Package supprimé avec succès.";
+                        $stmt->bind_param('i', $id_package);  // 'i' pour entier
+                        $stmt->execute();
+                        $stmt->close();
                     }
                 }
             ?>
@@ -207,14 +209,16 @@
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete_version'])) {
                         $id_version = $_POST['id_version'];
-                        $sql = "DELETE FROM version WHERE id_version = :id_version";
+                        
+                        $sql = "DELETE FROM version WHERE id_version = ?";
                         $stmt = $con->prepare($sql);
-                        $stmt->execute([':id_version' => $id_version]);
-
-                        echo "Version supprimée avec succès.";
+                        $stmt->bind_param('i', $id_version);  // 'i' pour entier
+                        $stmt->execute();
+                        $stmt->close();
                     }
                 }
             ?>
+
             <div class="flex justify-end pr-24">
                 <button class="ajouteVersion p-2 px-6 rounded-lg bg-yellow-300 text-white">
                     Ajouté Version
@@ -248,21 +252,21 @@
             </table>
         </section>
         <section>
-            <?php
-                if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    if (isset($_POST['submit_auteur'])) {
-                        $auteur = $_POST["nom"];
-                        $description = $_POST["description"];
-                        
-                        $sql = "INSERT INTO auteur (nom, description) VALUES (:nom, :description)";
-                        $stmt = $con->prepare($sql);
-                        $stmt->execute([
-                            ':nom' => $auteur,
-                            ':description' => $description
-                        ]);
-                    }
+        <?php
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                if (isset($_POST['submit_auteur'])) {
+                    $auteur = $_POST["nom"];
+                    $description = $_POST["description"];
+                    
+                    $sql = "INSERT INTO auteur (nom, description) VALUES (?, ?)";
+                    $stmt = $con->prepare($sql);
+                    $stmt->bind_param('ss', $auteur, $description);
+                    $stmt->execute();
+                    $stmt->close();
                 }
-            ?>
+            }
+        ?>
+
             <!-- formulaire Auteur -->
             <div class="formAuteur w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none">
                 <form action="admin.php" method="post" class="space-y-4 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
@@ -299,14 +303,11 @@
                         $description = $_POST["description"];
                         $id_auteur = $_POST["id_auteur"];
                         
-                        $sql = "INSERT INTO package (nomP, descriptionP, id_auteur) VALUES (:nom, :description, :id_auteur)";
+                        $sql = "INSERT INTO package (nomP, descriptionP, id_auteur) VALUES (?, ?, ?)";
                         $stmt = $con->prepare($sql);
-                        $stmt->execute([
-                            ':nom' => $package,
-                            ':description' => $description,
-                            ':id_auteur' => $id_auteur
-                        ]);
-                        
+                        $stmt->bind_param('sss', $package, $description, $id_auteur);
+                        $stmt->execute();
+                        $stmt->close();
                     }
                 }
             ?>
@@ -355,16 +356,15 @@
                         $version = $_POST["nom"];
                         $id_package = $_POST["id_package"];
                         
-                        $sql = "INSERT INTO version (num_version, id_package) VALUES (:num_version,:id_package)";
+                        $sql = "INSERT INTO version (num_version, id_package) VALUES (?, ?)";
                         $stmt = $con->prepare($sql);
-                        $stmt->execute([
-                            ':num_version' => $version,
-                            ':id_package' => $id_package
-                        ]);
-                        
+                        $stmt->bind_param('si', $version, $id_package); 
+                        $stmt->execute();
+                        $stmt->close();
                     }
                 }
             ?>
+
             <div class="formVersion w-full  fixed top-0 pt-[15%] pl-[40%] h-full backdrop-blur-md" style="display:none" >
                 <form action="admin.php" method="post" class="space-y-2 w-fit bg-white border-2 border-gray-200 shadow-lg rounded-lg p-6 pt-2">
                     <div class="flex justify-end mr-[-12px] cursor-pointer"><i class="bi bi-x-lg closeVersion"></i></div>
