@@ -18,11 +18,9 @@
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT); 
         $role = 'user';
         
-        // Préparer la requête avec des "?" (placeholders positionnels)
         $query = $con->prepare("INSERT INTO users (nom, prenom, email, password, role) VALUES (?, ?, ?, ?, ?)");
 
         if ($query) {
-            // Associer les paramètres aux placeholders
             $query->bind_param("sssss", $nom, $prenom, $email, $password, $role);
 
             if ($query->execute()) {

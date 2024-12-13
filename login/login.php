@@ -19,7 +19,6 @@
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Préparer la requête avec MySQLi
             $query = $con->prepare("SELECT * FROM users WHERE email = ?");
             $query->bind_param("s", $email);
             $query->execute();
@@ -27,11 +26,11 @@
             $user = $result->fetch_assoc();
 
             if ($user && password_verify($password, $user['password'])) {
-                // Stocker l'utilisateur dans la session
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['nom'] = $user['nom']; 
+                $_SESSION['prenom'] = $user['prenom'];
 
-                // Redirection en fonction du rôle
                 if ($user['role'] === 'admin') {
                     header("Location: ../admin/admin.php");
                 } else {
