@@ -47,4 +47,4 @@ Les acteurs principaux du système sont :
 
 1. Clonez ce repository :
    ```bash
-   git clone https://github.com/votre-utilisateur/gestion-packages.git
+   [git clone https://github.com/votre-utilisateur/gestion-packages.git](https://github.com/Youcode-Classe-E-2024-2025/sabri_amine_package)
